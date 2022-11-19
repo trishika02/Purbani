@@ -1,4 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+const Nth = require("tailwind-nth-child");
+const nth5n = new Nth("5n", "5n+0"); // Sub-elements that are multiples of 5
+const nth5 = new Nth("5", "-n+5"); // The first five child elements
+
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
@@ -18,7 +22,13 @@ module.exports = {
       },
     },
   },
-  plugins: [require("daisyui")],
+  variants: {
+    // extend the backgroundColor variants
+    extend: {
+      borderWidth: ["nth-child-5n", "nth-child-5"],
+    },
+  },
+  plugins: [require("daisyui"), nth5n.nthChild(), nth5.nthChild()],
   daisyui: {
     themes: [
       {
